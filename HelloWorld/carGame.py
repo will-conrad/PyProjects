@@ -1,5 +1,5 @@
 is_started = False
-
+print(">")
 while True:
     userIn = input('').lower()
     if userIn == 'help':
