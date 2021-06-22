@@ -1,0 +1,10 @@
+# This file is used internally by FFMPEG.
+file 'file:/Users/willconrad/PyProjects/Manim/media/videos/scene/480p15/partial_movie_files/sequence/3163782288_1301500138_1486936858.mp4'
+file 'file:/Users/willconrad/PyProjects/Manim/media/videos/scene/480p15/partial_movie_files/sequence/607903841_3061713864_2790841770.mp4'
+file 'file:/Users/willconrad/PyProjects/Manim/media/videos/scene/480p15/partial_movie_files/sequence/607903841_1427077573_1486936858.mp4'
+file 'file:/Users/willconrad/PyProjects/Manim/media/videos/scene/480p15/partial_movie_files/sequence/607903841_2236188430_2790841770.mp4'
+file 'file:/Users/willconrad/PyProjects/Manim/media/videos/scene/480p15/partial_movie_files/sequence/607903841_2082374145_1486936858.mp4'
+file 'file:/Users/willconrad/PyProjects/Manim/media/videos/scene/480p15/partial_movie_files/sequence/607903841_190740594_2790841770.mp4'
+file 'file:/Users/willconrad/PyProjects/Manim/media/videos/scene/480p15/partial_movie_files/sequence/607903841_3532735515_1486936858.mp4'
+file 'file:/Users/willconrad/PyProjects/Manim/media/videos/scene/480p15/partial_movie_files/sequence/607903841_2985807107_2790841770.mp4'
+file 'file:/Users/willconrad/PyProjects/Manim/media/videos/scene/480p15/partial_movie_files/sequence/607903841_2269074674_1486936858.mp4'
