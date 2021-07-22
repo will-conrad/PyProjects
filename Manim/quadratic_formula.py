@@ -2,8 +2,11 @@ from manim import *
 
 class Main(Scene):
 	def construct(self):
-		# Comments coming soon!
 		scale = 1.5
+		# All of the different formulas broken down so each element has a unique index
+		# This makes transforming many things at once tedious but straightforward
+
+		#This proof was interpreted from this image: https://i.pinimg.com/originals/51/a0/92/51a09239ad0e6d0d660d839f900f077a.png
 		formula = MathTex("a", "x", "^{2}", "+", "b", "x", "+", "c", "=", "0").scale(scale)
 		formula1 = MathTex("a", "x", "^{2}", "+", "b", "x", "+", "c", "=", "0").scale(scale)
 		formula2 = MathTex("a", "x", "^{2}", "+", "b", "x", "=", "-", "c").scale(scale)
@@ -20,6 +23,8 @@ class Main(Scene):
 		formula8 = MathTex("x", "+", "{b", "\\over", "2", "a}", "=", "{\\pm", "\\sqrt{", "b", "^{2}", "-", "4", "a", "c}", "\\over", "2", "a}").scale(scale)
 		formula9 = MathTex("x", "=", "{\\pm", "\\sqrt{", "b", "^{2}", "-", "4", "a", "c}", "\\over", "2", "a}", "-", "{b", "\\over", "2", "a}").scale(scale)
 		formula10 = MathTex("x", "=", "{-", "b", "\\pm", "\\sqrt{", "b", "^{2}", "-", "4", "a", "c}", "\\over", "2", "a", "}").scale(scale)
+		
+		# List that describes how each index of one formula transforms to the right index in the subsequent formula
 		changes = [
 			[(0, 1, 2, 3, 4, 5, 6, 7, 8),
 			 (0, 1, 2, 3, 4, 5, 7, 8, 6)],
@@ -65,68 +70,89 @@ class Main(Scene):
 
 		]
 
+		# Write the first formula and wait
 		self.play(
 			Write(formula1)
 		)
 		self.wait(1)
 
+		# Subtract both sides by c
 		self.play(*[
+
+			# Take each pair of indexes from the first group in the changes list and pass them as the
+			# index to transform from and the index to transform to
 			ReplacementTransform(formula1[x], formula2[y])
 			for x, y in zip(changes[0][0], changes[0][1])], 
+			# Fade out 0
 			FadeOut(formula1[9]),
 			run_time=2
 		)
-		self.wait(0.5)
-		# grid = NumberPlane()
-		# self.add(grid)
 
-		temp2 = formula2[0].copy()
+		self.wait(0.5)
+
 		# Divide by a
+		# Because one index has to transform into 2 places, create a duplicate first
+		temp2 = formula2[0].copy()
+		
 		self.play(*[
 			ReplacementTransform(formula2[x], formula3[y])
 			for x, y in zip(changes[1][0], changes[1][1])], 
+			# Rotate the duplicate a and the actual a into place
 			CounterclockwiseTransform(temp2, formula3[6], path_arc=PI/2),
 			CounterclockwiseTransform(formula2[0], formula3[11], path_arc=PI/2),
-
-			# GrowFromCenter(formula3[5]),
-			# GrowFromCenter(formula3[10]),
+			# Create the fraction lines
 			Create(formula3[5]),
 			Create(formula3[10]),
 			run_time=2
 		)
-		self.remove(temp2, formula2[0])
+		# Rotational transforms move element a to element b and transforms to look like element b, but what you see
+		# on screen is still element a. 
+		# Remove the elements from formula 2 and add in the full formula 3
 		self.add(formula3)
+		self.remove(temp2, formula2[0])
+		
 		self.wait(0.5)
 
+		# Shift x from numerator to beside the fraction
 		self.play(*[
 			ReplacementTransform(formula3[x], shiftx[y])
 			for x, y in zip(changes[2][0], changes[2][1])], 
 			
 			run_time=1.5
 		)
+
 		self.wait(0.5)
-		# formula4.shift(UP * 0.03)
+
+		# Shift destination formula up to make room for completing the square
 		formula4.shift(UP * 1.5)
 
-		# ShiftX (3) to 4 (Partial) / Move Up
+		# Move formula up and leave room for extra elements to come later
 		self.play(*[
 			ReplacementTransform(shiftx[x], formula4[y])
 			for x, y in zip(changes[3][0], changes[3][1])], 
 	
 			run_time=1.5
 		)
+
 		self.wait(0.5)
 
+		# Coefficient group
 		coef = VGroup(formula4[3], formula4[4], formula4[5])
+		# Draw a box around the coefficient
 		box = SurroundingRectangle(coef)
+
 		self.play(
 			Create(box),
 			run_time=1.5
 		)
+
 		self.wait(0.25)
+
+		# Premptively move later formulas down
 		complete_square1.shift(DOWN * 1.5)
 		complete_square2.shift(DOWN * 1.5)
 
+		# Move b/a down
 		self.play(*[
 			ReplacementTransform(formula4[x].copy(), complete_square1[y])
 			for x, y in zip(changes[4][0], changes[4][1])], 
@@ -135,14 +161,17 @@ class Main(Scene):
 			run_time=1.5
 		)
 
+		# Add the rest of the equation
 		self.play(
-			Write(complete_square1[3:7]))
-
+			Write(complete_square1[3:7])
+		)
 		self.wait(0.2)
 
+		# Write =
 		self.play(
-			Write(complete_square1[7]))
-
+			Write(complete_square1[7])
+		)
+		# Move elements across to form the solution
 		self.play(
 			ReplacementTransform(complete_square1[0].copy(), complete_square1[8]),
 			ReplacementTransform(complete_square1[2].copy(), complete_square1[11]),
@@ -155,27 +184,31 @@ class Main(Scene):
 
 		self.wait(1)
 
-
+		# Move the solution left and fade out the existing formula
 		self.play(*[
 			ReplacementTransform(complete_square1[x], complete_square2[y])
 			for x, y in zip(changes[5][0], changes[5][1])], 
 			FadeOut(complete_square1[0:8]),
 			run_time=1.5
 		)
+
 		self.wait(0.2)
 
+		# Add ()^2
 		self.play(
 			FadeIn(complete_square2[0]),
 			FadeIn(complete_square2[5]),
 			FadeIn(complete_square2[6]),
 			run_time=1
 		)
+
+		# Add =
 		self.play(
 			Write(complete_square2[7])
 		)
 
 
-
+		# Move elements across and distribute the ^2
 		self.play(
 			ReplacementTransform(complete_square2[1].copy(), complete_square2[8]),
 			ReplacementTransform(complete_square2[6].copy(), complete_square2[9]),
@@ -186,8 +219,10 @@ class Main(Scene):
 	
 			run_time=1.5
 		)
+
 		self.wait(1.5)
 
+		# Move everything back up
 		self.play(
 			ReplacementTransform(complete_square2[8].copy(), formula4[8]),
 			ReplacementTransform(complete_square2[9].copy(), formula4[9]),
@@ -203,14 +238,18 @@ class Main(Scene):
 			ReplacementTransform(complete_square2[12], formula4[24]),
 			ReplacementTransform(complete_square2[13], formula4[25]),
 
+			# Fade out bottom formula
 			FadeOut(complete_square2[0:8]),
+			# Add in plus signs
 			Write(formula4[7]),
 			Write(formula4[19]),
 			
 			run_time=2
 		)
+
 		self.wait(0.5)
 
+		# Move everything down
 		self.play(
 			formula4.animate.shift(DOWN*1.4),
 			run_time=1
@@ -218,16 +257,21 @@ class Main(Scene):
 
 		self.wait(0.5)
 
+		# Simplify left side
 		self.play(*[
 			ReplacementTransform(formula4[x], formula5[y])
-			for x, y in zip(changes[6][0], changes[6][1])], 
+			for x, y in zip(changes[6][0], changes[6][1])],
+			# Fade out middle nomial 
 			FadeOut(formula4[3:7]),
+			# Add parenthesis
 			GrowFromCenter(formula5[0]),
 			GrowFromCenter(formula5[7]),
 			run_time=2.5
 		)
+
 		self.wait(1)
 		
+		# Right side get common denomonator (4a gets distributed)
 		self.play(*[
 			ReplacementTransform(formula5[x], commonden[y])
 			for x, y in zip(changes[7][0], changes[7][1])], 
@@ -238,17 +282,20 @@ class Main(Scene):
 			ReplacementTransform(formula5[19].copy(), commonden[12]),
 			ReplacementTransform(formula5[19].copy(), commonden[16]),
 			ReplacementTransform(formula5[19], commonden[23]),
+			# Add ^2
 			Write(commonden[17]),
 			run_time=2
 		)
 
-
 		self.wait(1)
+
+		# Simplify right side and rearrange numerator
 		self.play(*[
 			ReplacementTransform(commonden[x], formula6[y])
 			for x, y in zip(changes[8][0], changes[8][1])],
 			CounterclockwiseTransform(commonden[19], formula6[10], path_arc=PI/2),
 			CounterclockwiseTransform(commonden[20], formula6[11], path_arc=PI/2),
+			# Remove plus sign
 			FadeOut(commonden[18]),
 			run_time=2
 		)
@@ -256,43 +303,47 @@ class Main(Scene):
 		self.add(formula6)
 
 		self.wait(0.5)
+		# Dummy is an invisable object that wastes time to delay events 
 		dummy = VMobject()
 		sqrts = VGroup(formula7[0], formula7[11])
 		self.play(*[
 			ReplacementTransform(formula6[x], formula7[y])
 			for x, y in zip(changes[9][0], changes[9][1])], 
+			# Animate dummy to delay, then animate writing the roots
 			LaggedStart(dummy.animate.shift(UP), Write(sqrts), lag_ratio=0.7),
 			run_time=2
 		)
-		self.wait(0.75)
-		
 
+		self.wait(0.75)
+		# Splits sqrt into one in numerator and one in demomonator
 		self.play(*[
 			ReplacementTransform(formula7[x], splitsqrt[y])
 			for x, y in zip(changes[10][0], changes[10][1])], 
-
 			ReplacementTransform(formula7[11].copy(), splitsqrt[12]),
 			ReplacementTransform(formula7[11], splitsqrt[21]),
 	
-			# ReplacementTransform(formula7[22], splitsqrt[23]),
-			# formula7[0].animate.set_color(RED),
 			run_time=2
-
 		)
-		self.wait(0.8)
-		blink = VGroup(splitsqrt[0], splitsqrt[9], splitsqrt[21], splitsqrt[24])
 
+		self.wait(0.8)
+
+		# Group of things that cancel each other
+		blink = VGroup(splitsqrt[0], splitsqrt[9], splitsqrt[21], splitsqrt[24])
+		# Make elements grow briefly
 		self.play(
 			*[x.animate.scale(1.1).set_stroke(width=2) for x in blink],
-			run_time=0.5)
+			run_time=0.5
+		)
+		# Shrink and turn red
 		self.play(
 			*[x.animate.scale(0.90909).set_stroke(width=2).set_color(RED) for x in blink],
-
-			run_time=0.5)
+			run_time=0.5
+		)
 		self.wait(0.3)
 
 		formula8[7].shift(RIGHT*1.05)
 		
+		# Shift destination elements over
 		lpar_temp = splitsqrt[1].copy().set_opacity(0)
 		rpar_temp = splitsqrt[8].copy().set_opacity(0)
 		lroot_temp = splitsqrt[0].copy().set_opacity(0)
@@ -312,11 +363,11 @@ class Main(Scene):
 		self.play(*[
 			ReplacementTransform(splitsqrt[x], formula8[y])
 			for x, y in zip(changes[11][0], changes[11][1])],
-			
-
+			# Write plus or minus
 			Write(formula8[7]),
 			formula8[7].animate.shift(LEFT),
 			
+			# Fade out sqrts and squares
 			ReplacementTransform(splitsqrt[21], roottemp),
 			ReplacementTransform(splitsqrt[24], sqr_temp),
 			
@@ -327,21 +378,27 @@ class Main(Scene):
 
 			run_time=2
 		)
+		# Add final formula 8 and remove temporary elements
 		self.add(formula8)
 		self.remove(lsqr_temp, lroot_temp, rpar_temp, lpar_temp, roottemp, sqr_temp)
+		
 		self.wait(1)
 
+		# group b/2a elements in formula 8 and in formula 9
 		f8group = VGroup(formula8[1:6])
 		f9group = VGroup(formula9[13:18])
 		self.play(*[
 			ReplacementTransform(formula8[x], formula9[y])
 			for x, y in zip(changes[12][0], changes[12][1])],
+			# Swing b/2a over from left to right side
 			CounterclockwiseTransform(f8group, f9group, path_arc=PI*0.8),
 			run_time=1.75
-			)
+		)
+
 		self.wait(1)
 		self.remove(f8group)
 
+		# Final transformation: simplify right side
 		self.play(*[
 			ReplacementTransform(formula9[x], formula10[y])
 			for x, y in zip(changes[13][0], changes[13][1])],
@@ -349,10 +406,11 @@ class Main(Scene):
 			CounterclockwiseTransform(formula9[13], formula10[2], path_arc=PI*0.8),
 			CounterclockwiseTransform(formula9[14], formula10[3], path_arc=PI*0.6),
 			run_time=1.5
-			)
+		)
 		self.add(formula10)
 		self.remove(formula9[13], formula9[14])
 		self.wait(3)
+		# Transforms everything back to original formula for GIF looping
 		# self.play(
 		# 	ReplacementTransform(formula10, formula))
 		# self.wait(1)
