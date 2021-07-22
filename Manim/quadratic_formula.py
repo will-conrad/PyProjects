@@ -1,9 +1,10 @@
 from manim import *
-import numpy as np
+
 class Main(Scene):
 	def construct(self):
+		# Comments coming soon!
 		scale = 1.5
-
+		formula = MathTex("a", "x", "^{2}", "+", "b", "x", "+", "c", "=", "0").scale(scale)
 		formula1 = MathTex("a", "x", "^{2}", "+", "b", "x", "+", "c", "=", "0").scale(scale)
 		formula2 = MathTex("a", "x", "^{2}", "+", "b", "x", "=", "-", "c").scale(scale)
 		formula3 = MathTex("x", "^{2}", "+", "{b", "x", "\\over", "a}", "=", "-", "{c", "\\over", "a}").scale(scale)
@@ -20,32 +21,47 @@ class Main(Scene):
 		formula9 = MathTex("x", "=", "{\\pm", "\\sqrt{", "b", "^{2}", "-", "4", "a", "c}", "\\over", "2", "a}", "-", "{b", "\\over", "2", "a}").scale(scale)
 		formula10 = MathTex("x", "=", "{-", "b", "\\pm", "\\sqrt{", "b", "^{2}", "-", "4", "a", "c}", "\\over", "2", "a", "}").scale(scale)
 		changes = [
-			[(0, 1, 2, 3, 4, 5, 6, 7, 8), (0, 1, 2, 3, 4, 5, 7, 8, 6)],
+			[(0, 1, 2, 3, 4, 5, 6, 7, 8),
+			 (0, 1, 2, 3, 4, 5, 7, 8, 6)],
 
-			[(1, 2, 3, 4, 5, 6, 7, 8), (0, 1, 2, 3, 4, 7, 8, 9)],
+			[(1, 2, 3, 4, 5, 6, 7, 8),
+			 (0, 1, 2, 3, 4, 7, 8, 9)],
 
-			[(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11), (0, 1, 2, 3, 6, 4, 5, 7, 8, 9, 10, 11)],
+			[(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11),
+			 (0, 1, 2, 3, 6, 4, 5, 7, 8, 9, 10, 11)],
 
-			[(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11), (0, 1, 2, 3, 4, 5, 6, 14,15,16,17, 18)],
+			[(0, 1, 2, 3, 4, 5, 6, 7,  8,  9,  10, 11),
+			 (0, 1, 2, 3, 4, 5, 6, 14, 15, 16, 17, 18)],
 
-			[(3, 4, 5), (0, 1, 2)],
+			[(3, 4, 5),
+			 (0, 1, 2)],
 
-			[(8, 9, 10, 11), (1, 2, 3,  4)],
+			[(8, 9, 10, 11),
+			 (1, 2, 3,  4)],
 
-			[(0, 1, 2, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25), (1, 8, 2, 2, 3, 8,  4,  5,  6,  8,  9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)],
+			[(0, 1, 2, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25),
+			 (1, 8, 2, 2, 3, 8,  4,  5,  6,  8,  9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)],
 
-			[(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 20), (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 13, 14, 16, 18, 19, 20, 21, 24)],
+			[(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 20),
+			 (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 13, 14, 16, 18, 19, 20, 21, 24)],
 
-			[(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,20, 21, 22, 23, 24),
-			 (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 13, 14, 15, 16, 17, 18, 19,11, 16, 17, 18, 19)],
+			[(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 20, 21, 22, 23, 24),
+			 (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 13, 14, 15, 16, 17, 18, 19, 11, 16, 17, 18, 19)],
 
-			[(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19), (1, 2, 3, 4, 5, 6, 7, 8, 9, 10,12, 13, 14, 15, 16, 17, 18, 19, 20, 21)],
+			[(0, 1, 2, 3, 4, 5, 6, 7, 8, 9,  10, 11, 12, 13, 14, 15, 16, 17, 18, 19),
+			 (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21)],
 
 			[(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21), 
 			 (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 13, 14, 15, 16, 17, 18, 20, 22, 23, 24)],
 
-			[(2, 3, 4, 5, 6, 7, 10, 12, 13, 14, 15, 16, 17, 18, 20,22,23),
-			 (0, 1, 2, 3, 4, 5, 6,  8,  9, 10, 11, 12, 13, 14, 15,16,17)]
+			[(2, 3, 4, 5, 6, 7, 10, 12, 13, 14, 15, 16, 17, 18, 20, 22, 23),
+			 (0, 1, 2, 3, 4, 5, 6,  8,  9,  10, 11, 12, 13, 14, 15, 16, 17)],
+
+			[(0, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17),
+			 (0, 1, 2, 3, 4, 5,  6,  7,  8,  9,  10, 11, 12)],
+
+			[(0, 1, 2, 3, 4, 5, 6, 7, 8,  9,  10, 11, 12, 15, 16, 17),
+			 (0, 1, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 12, 13, 14)]
 
 		]
 
@@ -61,8 +77,8 @@ class Main(Scene):
 			run_time=2
 		)
 		self.wait(0.5)
-		grid = NumberPlane()
-		self.add(grid)
+		# grid = NumberPlane()
+		# self.add(grid)
 
 		temp2 = formula2[0].copy()
 		# Divide by a
@@ -196,7 +212,7 @@ class Main(Scene):
 		self.wait(0.5)
 
 		self.play(
-			formula4.animate.shift(DOWN*1.5),
+			formula4.animate.shift(DOWN*1.4),
 			run_time=1
 		)
 
@@ -248,7 +264,7 @@ class Main(Scene):
 			LaggedStart(dummy.animate.shift(UP), Write(sqrts), lag_ratio=0.7),
 			run_time=2
 		)
-
+		self.wait(0.75)
 		
 
 		self.play(*[
@@ -264,12 +280,16 @@ class Main(Scene):
 
 		)
 		self.wait(0.8)
-		blink = VGroup(splitsqrt[0], splitsqrt[9], splitsqrt[21], splitsqrt[22], splitsqrt[24])
+		blink = VGroup(splitsqrt[0], splitsqrt[9], splitsqrt[21], splitsqrt[24])
 
 		self.play(
-			blink.animate.set_color(RED),
-			run_time=0.8)
-		self.wait(0.5)
+			*[x.animate.scale(1.1).set_stroke(width=2) for x in blink],
+			run_time=0.5)
+		self.play(
+			*[x.animate.scale(0.90909).set_stroke(width=2).set_color(RED) for x in blink],
+
+			run_time=0.5)
+		self.wait(0.3)
 
 		formula8[7].shift(RIGHT*1.05)
 		
@@ -281,10 +301,10 @@ class Main(Scene):
 		roottemp = splitsqrt[21].copy().set_opacity(0)
 		sqr_temp = splitsqrt[24].copy().set_opacity(0)
 
-		lpar_temp.shift(LEFT*0.25)
+		lpar_temp.shift(LEFT*0.4)
 		rpar_temp.shift(LEFT*0.55)
-		lroot_temp.shift(LEFT*0.25)
-		lsqr_temp.shift(LEFT*0.25)
+		lroot_temp.shift(LEFT*0.4)
+		lsqr_temp.shift(LEFT*0.6)
 		roottemp.shift(LEFT*1.2)
 		sqr_temp.shift(LEFT*1.2)
 		
@@ -293,7 +313,7 @@ class Main(Scene):
 			ReplacementTransform(splitsqrt[x], formula8[y])
 			for x, y in zip(changes[11][0], changes[11][1])],
 			
-			
+
 			Write(formula8[7]),
 			formula8[7].animate.shift(LEFT),
 			
@@ -309,68 +329,33 @@ class Main(Scene):
 		)
 		self.add(formula8)
 		self.remove(lsqr_temp, lroot_temp, rpar_temp, lpar_temp, roottemp, sqr_temp)
+		self.wait(1)
 
+		f8group = VGroup(formula8[1:6])
+		f9group = VGroup(formula9[13:18])
+		self.play(*[
+			ReplacementTransform(formula8[x], formula9[y])
+			for x, y in zip(changes[12][0], changes[12][1])],
+			CounterclockwiseTransform(f8group, f9group, path_arc=PI*0.8),
+			run_time=1.75
+			)
+		self.wait(1)
+		self.remove(f8group)
 
-
-		
-
-
-
-class Test(Scene):
-	def construct(self):
-		a = MathTex("x", "_1")
-		b = MathTex("y", "_1")
-		self.add(a)
-		self.wait()
-		a = b
-		self.add(a)
-		self.wait()
-
-		
-
-
-
-def vdw(Tr, Vr):
-	pr = 8 * Tr / (3 * Vr - 1) - 3 / Vr * 2
-	return pr
-class Example(ThreeDScene):
-	
-
-    def construct(self):
-    	
-
-        # self.camera.background_color = "#ece6e2"
-        resolution_fa = 42
-        self.set_camera_orientation(phi=75 * DEGREES, theta=-30 * DEGREES)
-
-       
-
-        def gauss2(u,v):
-            return np.array([u, v, vdw(u,v)/10])
-
-        gauss_plane = ParametricSurface(
-            gauss2,
-            resolution=(resolution_fa, resolution_fa),
-          
-            v_min=1,
-            v_max=10,
-            
-            u_min=1,
-            u_max=10
-        )
-
-        gauss_plane.set_style(fill_opacity=1,stroke_color=GREEN)
-        gauss_plane.set_fill_by_checkerboard(ORANGE, BLUE, opacity=0.5)
-        gauss_plane.move_to(ORIGIN)
-        axes = ThreeDAxes()
-        self.add(axes,gauss_plane)
-# (8, 9, 10, 11), (1, 2, 3, 4)
-# (0"{b", 1"\\over", 2"a}", 3"\\times", 4"{1", 5"\\over", 6"2}", 7"=", 8"{b", 9"\\over", 10"2", 11"a}").scale(scale)
-#8"{b", 9"^{2}", 10"\\over", 11"4", 12"a", 13"^{2}}"
-
-#20"{b", 21"^{2}", 22"\\over", 23"4", 24"a", 25"^{2}}")
-		
-
-
-
-
+		self.play(*[
+			ReplacementTransform(formula9[x], formula10[y])
+			for x, y in zip(changes[13][0], changes[13][1])],
+			formula9[13].animate.shift(UP*0.8),
+			CounterclockwiseTransform(formula9[13], formula10[2], path_arc=PI*0.8),
+			CounterclockwiseTransform(formula9[14], formula10[3], path_arc=PI*0.6),
+			run_time=1.5
+			)
+		self.add(formula10)
+		self.remove(formula9[13], formula9[14])
+		self.wait(3)
+		# self.play(
+		# 	ReplacementTransform(formula10, formula))
+		# self.wait(1)
+		# self.play(
+		# 	Unwrite(formula),
+		# 	run_time=1)
