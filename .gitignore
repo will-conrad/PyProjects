@@ -3,5 +3,6 @@ venv/
 .git/
 texput.log
 __pycache__/
-media/
 partial_movie_files/
+Tex/
+texts/
