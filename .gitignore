@@ -3,8 +3,6 @@ venv/
 .git/
 texput.log
 __pycache__/
-partial_movie_files/
-Tex/
-texts/
+media/
 .DS_Store
 geometry_chemistry.py
