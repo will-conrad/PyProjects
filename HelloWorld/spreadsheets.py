@@ -22,3 +22,5 @@ def process_wb(filename):
     sheet.add_chart(chart, 'e2')
 
     wb.save(filename)
+
+process_wb(input('Enter filename'))

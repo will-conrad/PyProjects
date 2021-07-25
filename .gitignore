@@ -1,7 +1,9 @@
 venv/
 .idea/
 .git/
-partial_movie_files/
+texput.log
 __pycache__/
+partial_movie_files/
 Tex/
+texts/
 .DS_Store
