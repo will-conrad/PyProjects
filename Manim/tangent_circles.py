@@ -16,7 +16,9 @@ class Circles(Scene):
             return [a, b, c]
 
         main = Circle(PI)
+
         triangle = Polygon(*triangle_coords(0, 0, 90 * DEGREES, PI))
         self.add(main, triangle)
+        self.add(Dot(1).move_to(main.get_center()).set_color(RED), Dot(1).move_to(triangle.get_center_of_mass()).set_color(BLUE))
 
 

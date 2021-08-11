@@ -84,3 +84,12 @@ class AnimatingMethods(Scene):
             run_time=5,
         )
         self.wait()
+
+class Testing(Scene):
+    def construct(self):
+        code = Code("/Users/willconrad/PyProjects/Manim/HelloWorld.py", language="py")
+        self.play(Create(code))
+        self.wait()
+
+
+

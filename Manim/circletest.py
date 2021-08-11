@@ -13,7 +13,7 @@ class GetIntersections:
         return coords
 
     def get_intersections(self, vmob1, vmob2,
-                                            tolerance=0.01,
+                                            tolerance=0.1,
                                             radius_error=0.2,
                                             use_average=True,
                                             use_first_vmob_reference=False):
@@ -42,28 +42,49 @@ class GetIntersections:
 
 class Main(Scene, GetIntersections):
     def construct(self):
-        circle1 = Circle(radius=1).set_color(GREEN)
-        circle2 = Circle(radius=0.5).set_color(RED).next_to(circle1, buff=0)
-        circle3 = Circle(0.25).set_color(BLUE).next_to(circle2, buff=0.035)
+        # o = Circle(3)
+        # op = Dot().move_to(o.get_center())
+        # o1 = Circle(0.8)
+        # a = Dot()
+        # ang = 110 * DEGREES
+        # o1.circle_to_inside_circumfrence(o, ang)
+        # a.to_point_along_circle(o, ang)
+        # o1p = Dot().move_to(o1.get_center())
+        # o1pl = Line(o1.get_center(), o1p.get_center())
+        # p = Dot()
+        # p.to_point_along_circle(o1, 220 * DEGREES)
+        # pl = o1pl.copy().rotate(90 * DEGREES).move_to(o1p)
+        # oa = Line(o.get_center(), a.get_center())
+        # oap = oa.copy().rotate(90 * DEGREES).move_to(a)
 
-        # def move_to_circle_edge(self, target, angle):
-        #     self.move_to(target)
-        #     self.shift(RIGHT * target.radius)
-        #     self.rotate(angle, about_point=target.get_center())
+        # self.add(o, a, op, o1, o1p, p, oa, oap, o1pl, pl)
+        # self.bring_to_front(a)
+        def line_tan_to_point(circle, point):
+            return Line(circle.get_center(), point.get_center()).set_length(20).rotate(90*DEGREES).move_to(point)
+
+        O = Circle(3)
+        pO = Dot().move_to(O)
+
+        O1 = Circle(0.8)
+        O1.circle_to_inside_circumfrence(O, 110 * DEGREES)
+        pO1 = Dot().move_to(O1)
+
+        P = Dot()
+        P.to_point_along_circle(O1, 230 * DEGREES)
+
+        self.add(O, pO, O1, pO1, P)
+
+        A = Dot()
+        A.to_point_along_circle(O1, 110 * DEGREES)
+        tanLineP = line_tan_to_point(O1, A)
+        tanLineA = line_tan_to_point(O1, P)
+        lOA = Line(pO.get_center(), A.get_center()).set_length(20)
+        lAP = Line(A.get_center(), P.get_center()).move_to(self.get_intersections(tanLineA, tanLineP)).set_length(20)
 
 
-        self.add(circle1, circle2, circle3)
-        theta = ValueTracker(0)
 
-        circle3.add_updater(lambda z: z.move_to_circle_edge(circle2, theta.get_value()))
+        self.add(A, lOA, tanLineP,tanLineA, lAP)
 
-
-        self.play(
-            Rotating(circle2, about_point=circle1.get_center()),
-            theta.animate(rate_func=linear, run_time=3).set_value(2 * PI),
-            run_time=3
-        )
-        self.wait()
 
 
 

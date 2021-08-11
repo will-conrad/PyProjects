@@ -4,12 +4,12 @@ import numpy as np
 
 class Graph(Scene):
     def construct(self):
-        axes = Axes(x_range=[-2,-5], y_range=[14,5])
+        axes = Axes(x_range=[2, 5], y_range=[14,5])
         self.play(Write(axes, lag_ratio = 0.01,run_time = 1))
 
 
         ln_sin_graph = axes.get_graph(
-            lambda x : np.log(x)*np.sin(x),
+            lambda x : np.log(x) * np.sin(x),
             color = BLUE,
         )
 
