@@ -153,14 +153,16 @@ class Main(Scene):
 		complete_square2.shift(DOWN * 1.5)
 
 		# Move b/a down
+		completesquare = Tex("Completing the Square").scale(1.25).shift(DOWN * 3)
 		self.play(*[
 			ReplacementTransform(formula4[x].copy(), complete_square1[y])
 			for x, y in zip(changes[4][0], changes[4][1])], 
 			
 			FadeOut(box),
+			FadeIn(completesquare),
 			run_time=1.5
 		)
-
+		# return()
 		# Add the rest of the equation
 		self.play(
 			Write(complete_square1[3:7])
@@ -240,12 +242,15 @@ class Main(Scene):
 
 			# Fade out bottom formula
 			FadeOut(complete_square2[0:8]),
+			#Fade out "completing the square"
+			FadeOut(completesquare),
 			# Add in plus signs
 			Write(formula4[7]),
 			Write(formula4[19]),
 			
 			run_time=2
 		)
+		#return()
 
 		self.wait(0.5)
 
