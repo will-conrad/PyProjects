@@ -1,43 +1,67 @@
+from turtle import up
 from manim import *
-config.pixel_width = 500
-config.pixel_height = 500
+config.pixel_width = 1000
+config.pixel_height = 1000
+config.frame_height = 10
+config.frame_width = 10
 class Lissajous(Scene):
     
-    def construct(self):
-        nCircle = Circle(1.5).set_fill(opacity=0).shift(UP * 4.5)
-        wCircle = Circle(1.5).set_fill(opacity=0).shift(LEFT * 4.5)
-        self.add(nCircle, wCircle)
-        nDot = Dot(radius=0.08, color=YELLOW)
-        wDot = Dot(radius=0.08, color=YELLOW)
-        self.add(nDot, wDot)
-        nDot.move_to(nCircle.point_from_proportion(0))
-        wDot.move_to(nCircle.point_from_proportion(0))
-        nRate = 0.25
-        wRate = 0.25
-        self.nOffset = 0
-        self.wOffset = 0
+    def lissajous(self, circleSize, upperCircleLoc, sideCircleLoc, upperTurns, sideTurns):
+        circleSize = 1.25
+        buffer = 1.5
+        self.upAngle = ValueTracker(0)
+        self.sideAngle = ValueTracker(0)
+        grid = NumberPlane([-5, 5, 1], [-5, 5, 1]).set_opacity(0.5)
+        self.add(grid)
+        
+        upperCircle = Circle(circleSize).shift(UP * (config.frame_height/2 - buffer)).set_fill(opacity=0)
+        upperDot = Dot().move_to(upperCircle.point_from_proportion(self.upAngle.get_value()%1))
+        self.add(upperCircle, upperDot)
 
-        def go_around_top_circle(mob, dt):
-            
-            self.offset += rate *  dt
-            # print(self.t_offset)
-            mob.move_to(circle.point_from_proportion(self.offset % 1))
+        sideCircle = Circle(circleSize).shift(LEFT * (config.frame_width / 2 - buffer)).set_fill(opacity=0)
+        sideDot = Dot().move_to(sideCircle.point_from_proportion(self.sideAngle.get_value()%1))
+        self.add(sideCircle, sideDot)
         
-        def go_around_top_circle(mob, dt):
-            self.offset += rate *  dt
-            # print(self.t_offset)
-            mob.move_to(circle.point_from_proportion(self.offset % 1))
-        def get_line_to_circle():
-            return Line([0, 0, 0], dot.get_center(), color=BLUE)
-        
-        def get_line_to_down():
-            return Line([dot.get_x(), -1 * config.frame_height, 0], dot.get_center(), color=BLUE)
-        
-        dot.add_updater(go_around_circle)
-
-        origin_to_circle_line = always_redraw(get_line_to_circle)
-        bottom_to_dot = always_redraw(get_line_to_down)
-        self.add(bottom_to_dot)
-        self.wait(4)
 
         
+    
+        upperDot.add_updater(lambda x: x.move_to(upperCircle.point_from_proportion(self.upAngle.get_value()%1)))
+        sideDot.add_updater(lambda x: x.move_to(sideCircle.point_from_proportion(self.sideAngle.get_value()%1)))
+
+        intersection = Dot([upperDot.get_x(), sideDot.get_y(), 0])
+        intersection.add_updater(lambda z: z.become(Dot([upperDot.get_x(), sideDot.get_y(), 0])))
+        self.add(intersection)
+        
+        curve = VMobject()
+        curve.set_points_as_corners([intersection.get_center(), intersection.get_center()])
+        def update_path(path):
+            previous_path = path.copy()
+            previous_path.add_points_as_corners([intersection.get_center()])
+            path.become(previous_path)
+        curve.add_updater(update_path)
+        self.add(curve)
+        
+        vLine = Line(upperDot.get_center(), intersection.get_center())
+        hLine = Line(sideDot.get_center(), intersection.get_center())
+        vLine.add_updater(lambda v: v.become(Line(upperDot.get_center(), [upperDot.get_x(), sideDot.get_y(), 0])))
+        hLine.add_updater(lambda h: h.become(Line(sideDot.get_center(), [upperDot.get_x(), sideDot.get_y(), 0])))
+        self.add(vLine, hLine)
+
+        
+
+
+        # pointX = ValueTracker(upperDot.get_x())
+        # pointY = ValueTracker(sideDot.get_y())
+        self.play(
+            self.upAngle.animate(rate_func=linear).set_value(upperTurns),
+            self.sideAngle.animate(rate_func=linear).set_value(sideTurns), 
+            run_time=6
+        )
+        def construct(self):
+            self.lissajous()
+
+        
+
+
+    
+
