@@ -27,7 +27,7 @@ competition Competition;
 
 float myVariable, liftSpeed, forwardSpeed, turnSpeed, leftWheels, rightWheels;
 float leftV, rightV, liftV;
-float stickScale = 0.85;
+float stickScale = 0.6;
 
 
 
@@ -37,8 +37,9 @@ float lerp(float a, float b, float t) {
 
 float scaleInput(float x)
 {
-  x = lerp(0, 100, x);
-  return stickScale * pow(x, 3) + (x * (1 - stickScale));
+  x = x / 100;
+  x = stickScale * pow(x, 3) + (x * (1 - stickScale));
+  return x * 90;
 }
 void spinMotors() {
   // Spin wheels to preset velocity
@@ -53,35 +54,35 @@ void spinMotors() {
 }
 void updateVelocity() {
   //Calculate correct wheel speeds
-  int driveMode = 0; //0 = original 1 = new
-  if (driveMode == 0)
-  {
-    leftV = Controller1.Axis3.position() + Controller1.Axis4.position();
-    rightV = Controller1.Axis3.position() - Controller1.Axis4.position();
-    liftV = Controller1.Axis1.position();
-  }
-  else
-  {
-    leftV = Controller1.Axis3.position();
-    rightV = Controller1.Axis2.position();
-    if (Controller1.ButtonUp.pressing())
-    {
-      liftV = 100;
-    }
-    else
-    {
-      liftV = -100;
-    }
-  }
+  
+  leftV = scaleInput(Controller1.Axis3.position() + (Controller1.Axis4.position() * 0.8));
+  rightV = scaleInput(Controller1.Axis3.position() - (Controller1.Axis4.position() * 0.8));
+  liftV = -1 * Controller1.Axis2.position();
+  
+  // if (Controller1.ButtonR2.pressing())
+  // {
+  //   liftL.setVelocity(100, percent);
+  //   liftR.setVelocity(100, percent);
+  // }
+  // else if (Controller1.ButtonR1.pressing())
+  // {
+  //   liftL.setVelocity(-100, percent);
+  //   liftR.setVelocity(-100, percent);
+  // }
+  // else
+  // {
+  //   liftL.setVelocity(0, percent);
+  //   liftR.setVelocity(0, percent);
+  // }
   //Set velocity
-  liftL.setVelocity(lerp(0, 100, liftV), percent);
-  liftR.setVelocity(lerp(0, 100, liftV), percent);
-  left_front.setVelocity(scaleInput(leftV), percent);
-  left_middle.setVelocity(scaleInput(leftV), percent);
-  left_rear.setVelocity(scaleInput(leftV), percent);
-  right_front.setVelocity(scaleInput(rightV), percent);
-  right_middle.setVelocity(scaleInput(rightV), percent);
-  right_rear.setVelocity(scaleInput(rightV), percent);
+  liftL.setVelocity(liftV, percent);
+  liftR.setVelocity(liftV, percent);
+  left_front.setVelocity(leftV, percent);
+  left_middle.setVelocity(leftV, percent);
+  left_rear.setVelocity(leftV, percent);
+  right_front.setVelocity(rightV, percent);
+  right_middle.setVelocity(rightV, percent);
+  right_rear.setVelocity(rightV, percent);
 }
 
 // "when started" hat block
@@ -89,12 +90,12 @@ int driver_control() {
   liftL.setStopping(hold);
   liftR.setStopping(hold);
   
-  left_front.setStopping(brake);
-  left_middle.setStopping(brake);
-  left_rear.setStopping(brake);
-  right_front.setStopping(brake);
-  right_middle.setStopping(brake);
-  right_rear.setStopping(brake);
+  left_front.setStopping(hold);
+  left_middle.setStopping(hold);
+  left_rear.setStopping(hold);
+  right_front.setStopping(hold);
+  right_middle.setStopping(hold);
+  right_rear.setStopping(hold);
 
   while (true) {
     updateVelocity();
@@ -107,6 +108,17 @@ int driver_control() {
 }
 int autonomous()
 {
+  int rot = 360 * 5;
+  left_front.spinFor(forward, rot, degrees, true);
+  left_middle.spinFor(forward, rot, degrees, true);
+  left_rear.spinFor(forward, rot, degrees, true);
+  right_front.spinFor(forward, rot, degrees, true);
+  right_middle.spinFor(forward, rot, degrees, true);
+  right_rear.spinFor(forward, rot, degrees, true);
+  wait(1.0, seconds);
+  //right_rear.spinFor(forward, rot, degrees, true);
+
+
   return 0;
 }
 
