@@ -6,7 +6,7 @@ config.frame_height = 10
 config.frame_width = 10
 class Lissajous(Scene):
     
-    def lissajous(self, circleSize, upperCircleLoc, sideCircleLoc, upperTurns, sideTurns):
+    def lissajous(self):
         circleSize = 1.25
         buffer = 1.5
         self.upAngle = ValueTracker(0)
@@ -46,19 +46,15 @@ class Lissajous(Scene):
         vLine.add_updater(lambda v: v.become(Line(upperDot.get_center(), [upperDot.get_x(), sideDot.get_y(), 0])))
         hLine.add_updater(lambda h: h.become(Line(sideDot.get_center(), [upperDot.get_x(), sideDot.get_y(), 0])))
         self.add(vLine, hLine)
-
-        
-
-
         # pointX = ValueTracker(upperDot.get_x())
         # pointY = ValueTracker(sideDot.get_y())
         self.play(
-            self.upAngle.animate(rate_func=linear).set_value(upperTurns),
-            self.sideAngle.animate(rate_func=linear).set_value(sideTurns), 
+            self.upAngle.animate(rate_func=linear).set_value(3),
+            self.sideAngle.animate(rate_func=linear).set_value(4), 
             run_time=6
         )
-        def construct(self):
-            self.lissajous()
+    def construct(self):
+        self.lissajous()
 
         
 
