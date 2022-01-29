@@ -1,9 +1,9 @@
 from manim import *
-config.pixel_width = 1000
-config.pixel_height = 1000
+config.pixel_width = 2000
+config.pixel_height = 2000
 config.frame_height = 10
 config.frame_width = 10
-config.frame_rate = 120
+config.frame_rate = 60
 config.background_color = "#0E1B24"
     
 class AnimatedBezierScene(Scene):
@@ -11,8 +11,8 @@ class AnimatedBezierScene(Scene):
     pts = np.array([
       [-3.5, -4, 0],
       [-3.5, 1, 0],
-      [0, 3.5, 0],
-      [0, -3.5, 0],
+      [0, 2.6, 0],
+      [0, -2.6, 0],
       [3.5, -1, 0],
       [3.5, 4, 0]
     ])
@@ -33,7 +33,7 @@ class AnimatedBezierScene(Scene):
     
     addSubLines(0, lines, 0)
     for i in range(len(lines) - 1):
-      d = Dot(lines[i].get_midpoint()).set_fill(color=colors[int(i / (len(pts)-1))])
+      d = Dot(radius=0.09, point=lines[i].get_midpoint()).set_fill(color=colors[int(i / (len(pts)-1))])
       points.add(d)
       d.add_updater(lambda mob, i=i : mob.move_to(lines[i].point_from_proportion(t.get_value())))
     
