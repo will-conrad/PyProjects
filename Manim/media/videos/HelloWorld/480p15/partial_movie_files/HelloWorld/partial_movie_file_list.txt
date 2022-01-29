@@ -1,0 +1,4 @@
+# This file is used internally by FFMPEG.
+file 'file:/Users/willconrad/PyProjects/Manim/media/videos/HelloWorld/480p15/partial_movie_files/HelloWorld/3163782288_2500646527_110158123.mp4'
+file 'file:/Users/willconrad/PyProjects/Manim/media/videos/HelloWorld/480p15/partial_movie_files/HelloWorld/607903841_1415574386_2515444676.mp4'
+file 'file:/Users/willconrad/PyProjects/Manim/media/videos/HelloWorld/480p15/partial_movie_files/HelloWorld/607903841_1415574386_658440064.mp4'

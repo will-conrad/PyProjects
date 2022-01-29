@@ -1,0 +1,6 @@
+# This file is used internally by FFMPEG.
+file 'file:/Users/willconrad/PyProjects/Manim/media/videos/sigmoid/1080p60/partial_movie_files/Main/450974505_2564126940_212655260.mp4'
+file 'file:/Users/willconrad/PyProjects/Manim/media/videos/sigmoid/1080p60/partial_movie_files/Main/34786186_2839847724_4204789706.mp4'
+file 'file:/Users/willconrad/PyProjects/Manim/media/videos/sigmoid/1080p60/partial_movie_files/Main/34786186_2020048556_927090088.mp4'
+file 'file:/Users/willconrad/PyProjects/Manim/media/videos/sigmoid/1080p60/partial_movie_files/Main/34786186_1523467298_2201841413.mp4'
+file 'file:/Users/willconrad/PyProjects/Manim/media/videos/sigmoid/1080p60/partial_movie_files/Main/34786186_3453489709_2358726869.mp4'

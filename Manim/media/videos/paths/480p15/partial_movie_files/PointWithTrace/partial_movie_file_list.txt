@@ -1,0 +1,6 @@
+# This file is used internally by FFMPEG.
+file 'file:/Users/willconrad/PyProjects/Manim/media/videos/paths/480p15/partial_movie_files/PointWithTrace/3163782288_2363886944_1892373056.mp4'
+file 'file:/Users/willconrad/PyProjects/Manim/media/videos/paths/480p15/partial_movie_files/PointWithTrace/607903841_1415574386_2706179621.mp4'
+file 'file:/Users/willconrad/PyProjects/Manim/media/videos/paths/480p15/partial_movie_files/PointWithTrace/607903841_1845772566_3337781142.mp4'
+file 'file:/Users/willconrad/PyProjects/Manim/media/videos/paths/480p15/partial_movie_files/PointWithTrace/607903841_334442995_1494727072.mp4'
+file 'file:/Users/willconrad/PyProjects/Manim/media/videos/paths/480p15/partial_movie_files/PointWithTrace/607903841_1415574386_2857001234.mp4'

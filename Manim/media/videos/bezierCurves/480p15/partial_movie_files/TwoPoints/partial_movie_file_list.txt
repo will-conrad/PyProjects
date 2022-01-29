@@ -1,0 +1,2 @@
+# This file is used internally by FFMPEG.
+file 'file:/Users/willconrad/PyProjects/Manim/media/videos/bezierCurves/480p15/partial_movie_files/TwoPoints/3163782288_3493041802_1708966799.mp4'

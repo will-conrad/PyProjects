@@ -1,0 +1,2 @@
+# This file is used internally by FFMPEG.
+file 'file:/Users/willconrad/PyProjects/Manim/media/videos/AnimatedBezier/1000p120/partial_movie_files/AnimatedBezierScene/534835068_3823191089_2872079477.mp4'

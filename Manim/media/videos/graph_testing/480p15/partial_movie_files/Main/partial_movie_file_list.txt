@@ -1,0 +1,4 @@
+# This file is used internally by FFMPEG.
+file 'file:/Users/willconrad/PyProjects/Manim/media/videos/graph_testing/480p15/partial_movie_files/Main/3163782288_3671897511_3426680108.mp4'
+file 'file:/Users/willconrad/PyProjects/Manim/media/videos/graph_testing/480p15/partial_movie_files/Main/607903841_3654855689_854154778.mp4'
+file 'file:/Users/willconrad/PyProjects/Manim/media/videos/graph_testing/480p15/partial_movie_files/Main/607903841_1415574386_116483493.mp4'

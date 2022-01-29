@@ -5,3 +5,4 @@ texput.log
 __pycache__/
 .DS_Store
 geometry_chemistry.py
+./Tex/
