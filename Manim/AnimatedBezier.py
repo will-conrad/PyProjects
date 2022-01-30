@@ -1,9 +1,9 @@
 from manim import *
-config.pixel_width = 2000
-config.pixel_height = 2000
+config.pixel_width = 500
+config.pixel_height = 500
 config.frame_height = 10
 config.frame_width = 10
-config.frame_rate = 60
+config.frame_rate = 30
 config.background_color = "#0E1B24"
     
 class AnimatedBezierScene(Scene):
@@ -20,6 +20,8 @@ class AnimatedBezierScene(Scene):
     t = ValueTracker(0)
     points = VGroup(*[Dot(i, radius=0.1).set_fill(color=config.background_color).set_stroke(WHITE, 3, 1)for i in pts]) 
     points[0].set_fill(color=WHITE)
+    for p in points:
+      p.add_updater(lambda mob : mob.set_z())
     lines = VGroup(*[Line(pts[i], pts[i+1]).set_stroke(width=5, opacity=1)for i in range(len(pts)-1)])
     
     def addSubLines(buffer, lines, c):  
